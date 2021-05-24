@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,700;1,800;1,900&display=swap');
+
+.wImage {
+  position: relative;
+  overflow: hidden;
+}
+.wImage:before {
+  content: '';
+  display: block;
+  padding-bottom: 66.66%;
+}
+.wImage.square:before {
+  padding-bottom: 99%;
+}
+.wImage .image {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.wImage .image.cover img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.wImage .image img {
+  display: block;
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  transition: 0.5s all ease-in-out;
+  -moz-transition: 0.5s all ease-in-out;
+}
+.banner-contain .wImage:before {
+  padding-bottom: 38%;
+}
+
+header .nav {
+  background: linear-gradient(to bottom right, #c0ebeb, #02f5f5);
+}
+
+header .nav .btn:hover {
+  background: #eeeeee;
+  color: #00adb5;
+}
+header .nav .btn > .sub-nav {
+  top: 99%;
+  right: 0;
+  color: #00adb5;
+  z-index: 99;
+}
+header .nav .btn:hover > .sub-nav {
+  display: block;
+}
+header .nav .btn > .sub-nav > li:hover {
+  background: #00adb5;
+  color: white;
+}
+
+footer {
+  background: #51c4d3;
+}
+footer .nav {
+  background: #126e82;
+}
+footer p {
+  font-size: 1.2em;
+  color: #d8e3e7;
+}
+footer em {
+  font-weight: 600;
+  color: #126e82;
+}
+footer strong {
+  font-size: 1.4em;
+  color: #132c33;
+}
+footer .social-media a {
+  color: #e1f1dd;
+}
+.pop-up {
+  bottom: 0%;
+  transform: translateX(-50%) translateY(100%);
+  transition: all 0.5s ease-in-out;
+}
+.pop-up.active {
+  transform: translateX(-50%) translateY(-100%);
+}
+.pop-up .icon {
+  /* transform: rotate(0);
+  transition: all 0.4s ease-in-out; */
+
+  transform: translateY(1px);
+  transition: all 0.2s ease-in-out;
+}
+.pop-up .icon.shake {
+  transform: translateY(3px);
+}

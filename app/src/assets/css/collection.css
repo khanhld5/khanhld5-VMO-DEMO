@@ -1,0 +1,13 @@
+.filter-group li {
+  cursor: pointer;
+}
+.filter-group li.active {
+  background: #8ac4d0;
+  color: #28527a;
+}
+.filter-group li p {
+  border-bottom: 2px solid transparent;
+}
+.filter-group li.active p {
+  border-bottom: 2px solid #f4d160;
+}

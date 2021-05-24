@@ -1,0 +1,27 @@
+.item .wImage::before {
+  padding-bottom: 90.5%;
+}
+
+.item .itemTitle {
+  transition: all 0.2s;
+  background: #b8e0e0;
+}
+.item .btn-contain .btn {
+  transition: all 0.2s ease-in-out;
+  background: #eeeeee;
+  color: #00adb5;
+}
+.item .btn-contain .btn:hover {
+  background: #c0fefc;
+  color: #583d72;
+}
+.item .wImage img {
+  transform: translateY(-50%) scale(1.01);
+}
+.item:hover img {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.item:hover .itemTitle {
+  background: #2bdfdf;
+}

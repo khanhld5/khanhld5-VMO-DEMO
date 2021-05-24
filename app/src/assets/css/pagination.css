@@ -1,0 +1,16 @@
+.pagination button:focus {
+  outline: none;
+}
+
+.pagination li {
+  border-color: #28527a;
+  color: #8ac4d0;
+}
+.pagination li:hover {
+  background: #fbeeac;
+  color: #28527a;
+}
+.pagination li.active {
+  background: #28527a;
+  color: white;
+}

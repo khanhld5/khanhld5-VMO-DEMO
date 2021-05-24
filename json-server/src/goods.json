@@ -1,0 +1,16 @@
+{
+  "goods": [
+    {
+      "id": "6asba370-5af3-4c3e-9288-7f092db48842",
+      "productId": "ff1d4fdf-4a2a-472b-81ec-74e9c036b46a",
+      "storeDate": 1621564400000,
+      "solded": true
+    },
+    {
+      "id": "6asba1d0-5af3-4c3e-9288-7f092db48842",
+      "productId": "ff1d4fdf-4a2a-472b-81ec-74e9c036b46a",
+      "storeDate": 1621564400000,
+      "solded": true
+    }
+  ]
+}

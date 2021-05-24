@@ -1,0 +1,32 @@
+{
+  "users": {
+    "3a1ba370-5af3-4c3e-9288-7f092db48842": [
+      {
+        "id": "5glba370-5af3-4c3e-9288-7f092db48842",
+        "receiver": "Le khanh",
+        "address": "Ho Tung Mau",
+        "phone": "312381923781"
+      },
+      {
+        "id": "0b773f86-d1f8-47e3-8f91-b152f92fd9c9",
+        "receiver": "khanhle",
+        "address": "asodi1u23alsdan",
+        "phone": "12314151351231"
+      }
+    ],
+    "3a1ba370-5af3-4c3e-9288-b488427f092d": [
+      {
+        "id": "a7a50074-47ac-4ef4-8a40-a79defecf12b",
+        "receiver": "lekhanh",
+        "address": "anhoa, mo lao",
+        "phone": "1231893123123"
+      },
+      {
+        "id": "d70306d1-1fbb-4120-803b-d19d2de9e294",
+        "receiver": "linh",
+        "address": "12ndlac, asosdi, w1io2",
+        "phone": "23123543535"
+      }
+    ]
+  }
+}

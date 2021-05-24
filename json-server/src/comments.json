@@ -1,0 +1,36 @@
+{
+  "products": {
+    "ff1d4fdf-4a2a-472b-81ec-74e9c036b46a": [
+      {
+        "id": "ff1d4fdf-4a2a-472b-81ec-74e9c036b46a",
+        "userId": "3a1ba370-5af3-a370-9288-b488427f092d",
+        "date": 1621391651065,
+        "title": "So Sweet and delicous",
+        "score": 4
+      },
+      {
+        "id": "ff1d4312v-4a2a-472b-81ec-74e9c036b46a",
+        "userId": "3a1ba370-5af3-4c3e-9288-b488427f092d",
+        "date": 1621391651065,
+        "title": "Not Bad",
+        "score": 4
+      }
+    ],
+    "974968f0-8c8b-40f0-93a0-0212629c4705": [
+      {
+        "id": "ff1d5edf-4a2a-472b-81ec-74e9c036b46a",
+        "userId": "3a1ba370-5af3-a370-9288-b488427f092d",
+        "date": 1621391651065,
+        "title": "So Sweet and delicous",
+        "score": 4
+      },
+      {
+        "id": "ff1d43eqv-4a2a-472b-81ec-74e9c036b46a",
+        "userId": "3a1ba370-5af3-4c3e-9288-b488427f092d",
+        "date": 1621391651065,
+        "title": "Not Bad",
+        "score": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "3a1ba370-5af3-4c3e-9288-7f092db48842",
+      "username": "lekhanh10",
+      "password": "@Khanh1997",
+      "email": "ksfhsdjf@gmail.com",
+      "fullname": "kjadhkjdha",
+      "address": "joaidjoad",
+      "cmt": "12314313",
+      "sdt": "3141414131",
+      "admin": false,
+      "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
+    },
+    {
+      "id": "3a1ba370-5af3-4c3e-9288-b488427f092d",
+      "username": "lekhanh7",
+      "password": "@Khanh1997",
+      "email": "ksfhsdjf@gmail.com",
+      "fullname": "kjadhkjdha",
+      "address": "joaidjoad",
+      "cmt": "12314313",
+      "sdt": "3141414131",
+      "admin": false,
+      "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
+    },
+    {
+      "id": "3a1ba370-5af3-a370-9288-b488427f092d",
+      "username": "lekhanh1",
+      "password": "@Khanh1997",
+      "email": "ksfhsdjf@gmail.com",
+      "fullname": "kjadhkjdha",
+      "address": "joaidjoad",
+      "cmt": "12314313",
+      "sdt": "3141414131",
+      "admin": false,
+      "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleUserAddReceiver } from '../../State/actions/userAction';
+import { handleUserAddReceiver } from '../../../State/actions/userAction';
 
 const AddNewAddress = (props) => {
   const { handleNo } = props;
@@ -24,13 +24,8 @@ const AddNewAddress = (props) => {
 
   const handleValidate = () => {
     const newError = {
-      username: { visible: false, message: '' },
-      password: { visible: false, message: '' },
-      confirmPassword: { visible: false, message: '' },
-      email: { visible: false, message: '' },
       receiver: { visible: false, message: '' },
       address: { visible: false, message: '' },
-      cmt: { visible: false, message: '' },
       phone: { visible: false, message: '' },
     };
     let passed = true;

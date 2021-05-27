@@ -8,25 +8,45 @@ const storeUser = (user) => {
   localStorage.setItem(`user`, JSON.stringify(user));
 };
 
-export const handleUserInit = () => async (dispatch) => {
-  dispatch({
-    type: act.USER_INIT,
-  });
+export const handleUserGetOrders = (url) => async (dispatch, getState) => {
+  const user = getState().user;
+  const userId = user.id;
+  const token = getState().user.access_token;
+  try {
+    const res = await axios_auth(token).get(url, {
+      params: { userId },
+    });
+    if (user.orders.length !== res.data.orders.length)
+      dispatch({
+        type: act.USER_GET_ORDERS,
+        payload: {
+          orders: res.data.orders,
+          access_token: res.data.access_token,
+        },
+      });
+    else
+      dispatch({
+        type: act.USER_RENEW_TOKEN,
+        payload: {
+          access_token: res.data.access_token,
+        },
+      });
+    storeUser(getState().user);
+  } catch (err) {
+    if (err.response.status === 401) {
+      dispatch({
+        type: act.USER_LOGOUT,
+      });
+      localStorage.removeItem(`user`);
+    }
+  }
 };
 
 export const handleUserLogin =
   (url, username, password) => async (dispatch, getState) => {
     const dataSend = { username, password };
     try {
-      // const res = await fetch(url, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(dataSend),
-      // });
       const res = await axios.post(url, dataSend);
-      // if (!res.access_token) return new Error(res.message);
       dispatch({
         type: act.USER_LOGIN,
         payload: {
@@ -46,13 +66,6 @@ export const handleUserLogin =
 export const handleUserRegister =
   (url, dataSend) => async (dispatch, getState) => {
     try {
-      // const res = await fetch(url).then((data) => data.json());
-      // return dispatch({
-      //   type: act.USER_REGISTER,
-      //   payload: {
-      //     user: res,
-      //   },
-      // });
       const res = await axios.post(url, dataSend);
       dispatch({
         type: act.USER_REGISTER,
@@ -140,6 +153,7 @@ export const handleUserAddReceiver =
         type: act.USER_ADD_RECEIVER,
         payload: {
           receivers: res.data.receivers,
+          access_token: res.data.access_token,
         },
       });
       storeUser(getState().user);
@@ -161,6 +175,7 @@ export const handleUserRemoveReceiver =
         type: act.USER_ADD_RECEIVER,
         payload: {
           receivers: res.data.receivers,
+          access_token: res.data.access_token,
         },
       });
       storeUser(getState().user);

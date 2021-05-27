@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../Constant/constant';
 import BannerContain from './bannerContain';
 import ListProduct from '../product-list/listProduct';
 import HomeListProduct from './homeListProduct';
@@ -38,20 +39,11 @@ const Home = (props) => {
       },
     ];
     setBanners(bannersInit);
-    handleGetList(
-      'http://localhost:8080/products?_page=1&_limit=4',
-      setListTrend
-    );
+    handleGetList(`${BASE_URL}/products?_page=1&_limit=4`, setListTrend);
 
-    handleGetList(
-      'http://localhost:8080/products?_page=2&_limit=4',
-      setListNewArrival
-    );
+    handleGetList(`${BASE_URL}/products?_page=2&_limit=4`, setListNewArrival);
 
-    handleGetList(
-      'http://localhost:8080/products?_page=3&_limit=4',
-      setListCurrent
-    );
+    handleGetList(`${BASE_URL}/products?_page=3&_limit=4`, setListCurrent);
   }, []);
 
   return (

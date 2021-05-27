@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LoginTemplate from './loginTemplate';
+import { BASE_URL } from '../../Constant/constant';
 import { Link } from 'react-router-dom';
 import history from '../../history.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -233,9 +233,7 @@ const Login = () => {
   const handleRegister = () => {
     const dataSend = { username, password, email, fullname, address, cmt, sdt };
     if (handleValidate()) {
-      dispatch(
-        handleUserRegister('http://localhost:8080/auth/register', dataSend)
-      );
+      dispatch(handleUserRegister(`${BASE_URL}/auth/register`, dataSend));
     }
   };
   useEffect(() => {
@@ -262,167 +260,160 @@ const Login = () => {
       setCMT('');
       setSDT('');
       setEmail('');
-      history.push('/');
     }
   }, [user]);
 
   return (
-    <LoginTemplate title='register'>
-      <form
-        className='p-5 relative overflow-hidden'
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleRegister();
-        }}
-        onKeyPress={(e) => handleKeyPressEnter(e)}
-      >
-        <div className={`page ${panigation === 1 ? 'active' : ''}`}>
-          <div>
-            <p>
-              {error.username.visible ? <i>{error.username.message}</i> : ''}
-              {user.error && user.error.length ? (
-                <div>
-                  <i>{user.error}</i>
-                </div>
-              ) : (
-                ''
-              )}
-            </p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='text'
-              placeholder='Username'
-              onChange={(e) => setUsername(e.currentTarget.value)}
-              onFocus={() => handleFocus(0)}
-              onBlur={() => handleBlur(0)}
-              value={username}
-            />
-          </div>
-          <div>
-            <p>
-              {error.password.visible ? <i>{error.password.message}</i> : ''}
-            </p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='password'
-              placeholder='Password'
-              onChange={(e) => setPassword(e.currentTarget.value)}
-              onFocus={() => handleFocus(1)}
-              onBlur={() => handleBlur(1)}
-              value={password}
-            />
-          </div>
-          <div>
-            <p>
-              {error.confirmPassword.visible ? (
-                <i>{error.confirmPassword.message}</i>
-              ) : (
-                ''
-              )}
-            </p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='password'
-              placeholder='Confirm password'
-              onChange={(e) => setConfirmPassword(e.currentTarget.value)}
-              onFocus={() => handleFocus(2)}
-              onBlur={() => handleBlur(2)}
-              value={confirmPassword}
-            />
-          </div>
-          <div>
-            <p>{error.email.visible ? <i>{error.email.message}</i> : ''}</p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='text'
-              placeholder='Email'
-              onChange={(e) => setEmail(e.currentTarget.value)}
-              onFocus={() => handleFocus(3)}
-              onBlur={() => handleBlur(3)}
-              value={email}
-            />
-          </div>
-        </div>
-        <div className={`page ${panigation === 2 ? 'active' : ''}`}>
-          <div>
-            <p>
-              {error.fullname.visible ? <i>{error.fullname.message}</i> : ''}
-            </p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='text'
-              placeholder='Fullname'
-              onChange={(e) => setFullname(e.currentTarget.value)}
-              onFocus={() => handleFocus(4)}
-              onBlur={() => handleBlur(4)}
-              value={fullname}
-            />
-          </div>
-          <div>
-            <p>{error.address.visible ? <i>{error.address.message}</i> : ''}</p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='text'
-              placeholder='Address'
-              onChange={(e) => setAddress(e.currentTarget.value)}
-              onFocus={() => handleFocus(5)}
-              onBlur={() => handleBlur(5)}
-              value={address}
-            />
-          </div>
-          <div>
-            {error.cmt.visible ? (
-              <p>
-                <i>{error.cmt.message}</i>
-              </p>
+    <form
+      className='p-5 relative overflow-hidden'
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleRegister();
+      }}
+      onKeyPress={(e) => handleKeyPressEnter(e)}
+    >
+      <div className={`page ${panigation === 1 ? 'active' : ''}`}>
+        <div>
+          <p>
+            {error.username.visible ? <i>{error.username.message}</i> : ''}
+            {user.error && user.error.length ? (
+              <div>
+                <i>{user.error}</i>
+              </div>
             ) : (
               ''
             )}
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='text'
-              placeholder='CMT'
-              onChange={(e) => setCMT(e.currentTarget.value)}
-              onFocus={() => handleFocus(6)}
-              onBlur={() => handleBlur(6)}
-              value={cmt}
-            />
-          </div>
-          <div>
-            <p>{error.sdt.visible ? <i>{error.sdt.message}</i> : ''}</p>
-            <input
-              className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
-              type='text'
-              placeholder='Phone number'
-              onChange={(e) => setSDT(e.currentTarget.value)}
-              onFocus={() => handleFocus(7)}
-              onBlur={() => handleBlur(7)}
-              value={sdt}
-            />
-          </div>
+          </p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='text'
+            placeholder='Username'
+            onChange={(e) => setUsername(e.currentTarget.value)}
+            onFocus={() => handleFocus(0)}
+            onBlur={() => handleBlur(0)}
+            value={username}
+          />
         </div>
-        <div className='flex mb-2'>
-          <button
-            onClick={(e) => handlePrev(e)}
-            className={`w-full mr-5 bg-red-300 px-5 py-1 outline-none rounded 
+        <div>
+          <p>{error.password.visible ? <i>{error.password.message}</i> : ''}</p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='password'
+            placeholder='Password'
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            onFocus={() => handleFocus(1)}
+            onBlur={() => handleBlur(1)}
+            value={password}
+          />
+        </div>
+        <div>
+          <p>
+            {error.confirmPassword.visible ? (
+              <i>{error.confirmPassword.message}</i>
+            ) : (
+              ''
+            )}
+          </p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='password'
+            placeholder='Confirm password'
+            onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+            onFocus={() => handleFocus(2)}
+            onBlur={() => handleBlur(2)}
+            value={confirmPassword}
+          />
+        </div>
+        <div>
+          <p>{error.email.visible ? <i>{error.email.message}</i> : ''}</p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='text'
+            placeholder='Email'
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            onFocus={() => handleFocus(3)}
+            onBlur={() => handleBlur(3)}
+            value={email}
+          />
+        </div>
+      </div>
+      <div className={`page ${panigation === 2 ? 'active' : ''}`}>
+        <div>
+          <p>{error.fullname.visible ? <i>{error.fullname.message}</i> : ''}</p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='text'
+            placeholder='Fullname'
+            onChange={(e) => setFullname(e.currentTarget.value)}
+            onFocus={() => handleFocus(4)}
+            onBlur={() => handleBlur(4)}
+            value={fullname}
+          />
+        </div>
+        <div>
+          <p>{error.address.visible ? <i>{error.address.message}</i> : ''}</p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='text'
+            placeholder='Address'
+            onChange={(e) => setAddress(e.currentTarget.value)}
+            onFocus={() => handleFocus(5)}
+            onBlur={() => handleBlur(5)}
+            value={address}
+          />
+        </div>
+        <div>
+          {error.cmt.visible ? (
+            <p>
+              <i>{error.cmt.message}</i>
+            </p>
+          ) : (
+            ''
+          )}
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='text'
+            placeholder='CMT'
+            onChange={(e) => setCMT(e.currentTarget.value)}
+            onFocus={() => handleFocus(6)}
+            onBlur={() => handleBlur(6)}
+            value={cmt}
+          />
+        </div>
+        <div>
+          <p>{error.sdt.visible ? <i>{error.sdt.message}</i> : ''}</p>
+          <input
+            className='w-full mb-5 px-2 py-1 rounded border border-gray-200 focus:outline-none'
+            type='text'
+            placeholder='Phone number'
+            onChange={(e) => setSDT(e.currentTarget.value)}
+            onFocus={() => handleFocus(7)}
+            onBlur={() => handleBlur(7)}
+            value={sdt}
+          />
+        </div>
+      </div>
+      <div className='flex mb-2'>
+        <button
+          onClick={(e) => handlePrev(e)}
+          className={`w-full mr-5 bg-red-300 px-5 py-1 outline-none rounded 
               border border-red-400 uppercase text-white 
               text-lg font-medium focus:outline-none`}
-            type='button'
-          >
-            {panigation === 2 ? 'Previous' : <Link to='/login'>Login</Link>}
-          </button>
-          <button
-            onClick={panigation !== 2 ? (e) => handleNext(e) : () => {}}
-            className={`w-full bg-green-500 px-5 py-1 outline-none rounded 
+          type='button'
+        >
+          {panigation === 2 ? 'Previous' : <Link to='/login'>Login</Link>}
+        </button>
+        <button
+          onClick={panigation !== 2 ? (e) => handleNext(e) : () => {}}
+          className={`w-full bg-green-500 px-5 py-1 outline-none rounded 
               border border-gray-400 uppercase text-white 
               text-lg font-medium focus:outline-none`}
-            type={panigation === 2 ? 'submit' : 'button'}
-          >
-            {panigation !== 1 ? 'Register' : 'Next'}
-          </button>
-        </div>
-      </form>
-    </LoginTemplate>
+          type={panigation === 2 ? 'submit' : 'button'}
+        >
+          {panigation !== 1 ? 'Register' : 'Next'}
+        </button>
+      </div>
+    </form>
   );
 };
 

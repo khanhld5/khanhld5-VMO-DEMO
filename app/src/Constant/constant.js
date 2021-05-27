@@ -20,5 +20,16 @@ export const USER_CHANGE_PASSWORD = 'handleUserChangePassword';
 export const USER_CHANGE_PASSWORD_ERROR = 'handleUserChangePasswordError';
 export const USER_ADD_RECEIVER = 'handleUserAddReceiver';
 export const USER_REMOVE_RECEIVER = 'handleUserRemoveReceiver';
-
+export const USER_GET_ORDERS = 'handleUserGetOrders';
+export const USER_RENEW_TOKEN = 'handleUserRenewToken';
 export const USER_LOGOUT = 'handleUserLogOut';
+
+// baseUrl
+export const BASE_URL = 'http://localhost:8080';
+
+//order status
+export const ORDER_SAVED = 'Saved';
+export const RECEIVE_ORDER = 'Received';
+export const DELIVER_ORDER = 'Delivering';
+export const DELIVERED = 'Delivered';
+export const RATED = 'User rated';

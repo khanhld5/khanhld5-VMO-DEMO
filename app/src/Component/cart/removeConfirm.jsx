@@ -33,14 +33,20 @@ const RemoveConfirm = (props) => {
           <button
             type='button'
             className='w-2/5 px-4 py-2 bg-red-500 text-white rounded-md border border-red-500 outline-none focus:outline-none'
-            onClick={handleYes}
+            onClick={(e) => {
+              e.preventDefault();
+              handleYes();
+            }}
           >
             YES
           </button>
           <button
             type='button'
             className='w-2/5 ml-auto  px-4 py-2 rounded-md border border-gray-400 outline-none focus:outline-none'
-            onClick={() => handleNo(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNo(false);
+            }}
           >
             NO
           </button>

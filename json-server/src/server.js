@@ -42,6 +42,8 @@ const getUserReceiversById = (id) => {
   }
   return false;
 };
+const getOrdersById = (userId) =>
+  ordersDb.orders.filter((item) => item.user.userId === userId);
 
 server.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -191,10 +193,16 @@ server.post('/auth/login', (req, res) => {
     (user) => user.username === username && user.password === password
   );
   const userReceivers = getUserReceiversById(result.id) || [];
+  const userOrders = getOrdersById(result.id) || [];
   const user = { ...result };
   delete user.password;
   const access_token = createToken({ username, password });
-  res.status(200).json({ ...user, receivers: userReceivers, access_token });
+  res.status(200).json({
+    ...user,
+    receivers: userReceivers,
+    orders: userOrders,
+    access_token,
+  });
 });
 
 server.post('/auth/register', (req, res) => {
@@ -224,7 +232,7 @@ server.post('/auth/register', (req, res) => {
     const user = { ...result };
     delete user.password;
     const access_token = createToken({ username, password });
-    res.status(200).json({ ...user, access_token });
+    res.status(200).json({ ...user, orders: [], receivers: [], access_token });
   }
 });
 
@@ -335,6 +343,7 @@ server.post('/auth/addReceiver', (req, res) => {
   if (token) {
     if (token.exp - token.iat) {
       const { payload } = req.body;
+      const user = getUserById(payload.id);
       const userReceivers = getUserReceiversById(payload.id) || [];
 
       userReceivers.push({
@@ -344,9 +353,12 @@ server.post('/auth/addReceiver', (req, res) => {
         phone: payload.phone,
       });
       receiversDb.users[payload.id] = [...userReceivers];
-
+      const access_token = createToken({
+        username: user.username,
+        password: user.password,
+      });
       writeJsonFile('./src/receivers.json', receiversDb);
-      res.status(200).json({ receivers: userReceivers });
+      res.status(200).json({ receivers: userReceivers, access_token });
       return;
     }
     const status = 401;
@@ -373,6 +385,8 @@ server.post('/auth/removeReceiver', (req, res) => {
   if (token) {
     if (token.exp - token.iat) {
       const { payload } = req.body;
+      const user = getUserById(payload.id);
+
       const userReceivers = getUserReceiversById(payload.userId) || [];
 
       const newReceivers = userReceivers.filter(
@@ -380,9 +394,12 @@ server.post('/auth/removeReceiver', (req, res) => {
       );
       receiversDb.users[payload.userId] = [...newReceivers];
       const result = getUserReceiversById(payload.userId);
-
+      const access_token = createToken({
+        username: user.username,
+        password: user.password,
+      });
       writeJsonFile('./src/receivers.json', receiversDb);
-      res.status(200).json({ receivers: result });
+      res.status(200).json({ receivers: result, access_token });
       return;
     }
     const status = 401;
@@ -410,6 +427,7 @@ server.post('/auth/checkout', (req, res) => {
     if (token.exp - token.iat) {
       const { payload } = req.body;
       const newOrder = {
+        id: uuidv4(),
         user: { userId: payload.userId, receiverId: payload.receiver },
         products: payload.products,
         total: payload.total,
@@ -425,8 +443,42 @@ server.post('/auth/checkout', (req, res) => {
         password: user.password,
       });
       writeJsonFile('./src/orders.json', ordersDb);
-      writeJsonFile('./src/goods.json', goodsDb);
+      // writeJsonFile('./src/goods.json', goodsDb);
       res.status(200).json({ access_token });
+      return;
+    }
+    const status = 401;
+    const message = 'Your session has been expired, please login again';
+    res.status(status).json({ status, message });
+    return;
+  }
+  const status = 401;
+  const message = 'Your have an invalid token';
+  res.status(status).json({ status, message });
+});
+
+server.get('/auth/orders', (req, res) => {
+  if (
+    req.headers.authorization === undefined ||
+    req.headers.authorization.split(' ')[0] !== 'Bearer'
+  ) {
+    const status = 401;
+    const message = 'Bad authorization header';
+    res.status(status).json({ status, message });
+    return;
+  }
+  const token = verifyToken(req.headers.authorization.split(' ')[1]);
+  if (token) {
+    if (token.exp - token.iat) {
+      const { userId } = req.query;
+      const orders = getOrdersById(userId);
+      //create new token
+      const user = getUserById(userId);
+      const access_token = createToken({
+        username: user.username,
+        password: user.password,
+      });
+      res.status(200).json({ orders, access_token });
       return;
     }
     const status = 401;

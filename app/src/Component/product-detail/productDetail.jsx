@@ -5,6 +5,7 @@ import parse from 'html-react-parser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { handleCartAddProduct } from '../../State/actions/cartAction';
+import { BASE_URL } from '../../Constant/constant';
 import Comment from './comment';
 import Star from './star';
 import ShopDescription from '../home/shopDescription';
@@ -34,7 +35,7 @@ const ProductDetail = (props) => {
     const getDetail = async () => {
       try {
         const res = await axios
-          .get('http://localhost:8080/product-detail', {
+          .get(`${BASE_URL}/product-detail`, {
             params: { id },
           })
           .then((result) => result.data);

@@ -16,13 +16,15 @@ const storeCart = (user, cart) => {
 export const handleCartInit = () => (dispatch, getState) => {
   const user = getState().user;
   if (user.error) return;
-  dispatch({
-    type: act.CART_INIT,
-    payload: {
-      user,
-    },
-  });
-  storeCart(getState().user, getState().cart);
+  if (user.hasOwnProperty('access_token')) {
+    dispatch({
+      type: act.CART_INIT,
+      payload: {
+        user,
+      },
+    });
+    storeCart(user, getState().cart);
+  }
 };
 
 export const handleCartDestroy = () => (dispatch) => {
@@ -49,7 +51,6 @@ export const handleCartCheckout =
       dispatch({
         type: act.CART_CHECK_OUT,
       });
-      console.log('helo');
       storeCart(getState().user, getState().cart);
     } catch (err) {
       if (err.response.status === 401) {

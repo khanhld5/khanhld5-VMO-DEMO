@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import history from './history.js';
-import HeaderHeightContext from './context/headerHeightContext';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -18,6 +17,7 @@ import {
 import logo from './assets/image/logo.png';
 import { handleCartDestroy, handleCartInit } from './State/actions/cartAction';
 import Home from './Component/home/home';
+import LoginTemplate from './Component/login/loginTemplate';
 import Login from './Component/login/login';
 import Register from './Component/login/register';
 import Cart from './Component/cart/cart';
@@ -41,16 +41,11 @@ function App() {
   const [curCart, setCurCart] = useState(0);
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
-  useEffect(() => {
-    dispatch(handleUserInit());
-  }, []);
-  useEffect(() => {
-    if (Object.keys(user).length) {
-      dispatch(handleCartInit());
-    }
-    setHeaderHeight(header.current.clientHeight);
-  }, [user]);
 
+  useEffect(() => {
+    setHeaderHeight(header.current.clientHeight);
+    dispatch(handleCartInit());
+  }, [user]);
   useEffect(() => {
     if (cart.hasOwnProperty('products')) {
       let count = 0;
@@ -198,9 +193,12 @@ function App() {
                       : `hidden`
                   }
                 >
-                  {cart.hasOwnProperty('products') && cart.products.length !== 0
-                    ? cart.products.length
-                    : ''}
+                  {cart.hasOwnProperty('products') &&
+                  cart.products.length !== 0 ? (
+                    cart.products.length
+                  ) : (
+                    <></>
+                  )}
                 </span>
               </Link>
             </section>
@@ -217,31 +215,38 @@ function App() {
             <Route path='/productDetail/:id'>
               <ProductDetail />
             </Route>
-            <Route path='/userInfo'>
-              <UserInfomation />
-            </Route>
-            <Route path='/checkout'>
-              <CheckOut />
-            </Route>
-            <HeaderHeightContext.Provider value={headerHeight}>
-              <Route path='/login'>
-                {user.hasOwnProperty('access_token') ? (
+            {user.hasOwnProperty('access_token') ? (
+              <>
+                <Route path='/login'>
                   <Redirect to='/' />
-                ) : (
-                  <Login />
-                )}
-              </Route>
-              <Route path='/register'>
-                {user.hasOwnProperty('access_token') ? (
+                </Route>
+                <Route path='/register'>
                   <Redirect to='/' />
-                ) : (
-                  <Register />
-                )}
-              </Route>
-              <Route path='/cart'>
-                <Cart />
-              </Route>
-            </HeaderHeightContext.Provider>
+                </Route>
+                <Route path='/userInfo'>
+                  <UserInfomation />
+                </Route>
+                <Route path='/cart'>
+                  <Cart />
+                </Route>
+                <Route path='/checkout'>
+                  <CheckOut />
+                </Route>
+              </>
+            ) : (
+              <>
+                <Route path='/login'>
+                  <LoginTemplate title='login' headerHeight={headerHeight}>
+                    <Login />
+                  </LoginTemplate>
+                </Route>
+                <Route path='/register'>
+                  <LoginTemplate title='register' headerHeight={headerHeight}>
+                    <Register />
+                  </LoginTemplate>
+                </Route>
+              </>
+            )}
           </Switch>
         </section>
         <footer className='pb-20'>

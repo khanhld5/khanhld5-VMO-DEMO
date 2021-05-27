@@ -54,7 +54,10 @@ const Product = (props) => {
       <td className={`px-3 py-2 ${border}`}>
         <span className='inline-block rounded-md border border-gray-200 ml-2'>
           <button
-            onClick={handleDecreaseQuantity}
+            onClick={(e) => {
+              e.preventDefault();
+              handleDecreaseQuantity();
+            }}
             className={`bg-gray-100 w-10 px-3 py-1 rounded-l-md focus:outline-none border-r ${
               item.product.left === 0
                 ? 'text-gray-400'
@@ -71,7 +74,10 @@ const Product = (props) => {
             {item.quantity}
           </span>
           <button
-            onClick={handleIncreaseQuantity}
+            onClick={(e) => {
+              e.preventDefault();
+              handleIncreaseQuantity();
+            }}
             className={`bg-gray-100 w-10 px-3 py-1 rounded-r-md  focus:outline-none border-l ${
               item.product.left === 0
                 ? 'text-gray-400'
@@ -91,7 +97,10 @@ const Product = (props) => {
       <td className={`px-3 py-2 ${border}`}>
         <button
           type='button'
-          onClick={() => setRemoveConfirm(true)}
+          onClick={(e) => {
+            e.preventDefault();
+            setRemoveConfirm(true);
+          }}
           className='italic text-red-500 hover:underline outline-none focus:outline-none'
         >
           Remove

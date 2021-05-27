@@ -7,8 +7,8 @@ import {
   useRouteMatch,
 } from 'react-router';
 import { Link } from 'react-router-dom';
-import ReceiveInfo from './receiveInfo';
-import OrderInfo from './orderInfo';
+import ReceiveInfo from './receivers/receiveInfo';
+import OrderInfo from './orders/orderInfo';
 import ChangePassword from './changePassword';
 import UserInfo from './userInfo';
 import { useSelector } from 'react-redux';

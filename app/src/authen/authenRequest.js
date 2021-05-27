@@ -1,5 +1,8 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:8080';
+import { BASE_URL } from '../Constant/constant';
 const axios_auth = (token) =>
-  axios.create({ baseURL, headers: { Authorization: `Bearer ${token}` } });
+  axios.create({
+    baseURL: BASE_URL,
+    headers: { Authorization: `Bearer ${token}` },
+  });
 export default axios_auth;

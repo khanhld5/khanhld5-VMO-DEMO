@@ -1,28 +1,20 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { debounce } from 'debounce';
 import { Link } from 'react-router-dom';
-import HeaderHeightContext from '../../context/headerHeightContext';
 import logo from '../../assets/image/logo-black.png';
 import shopDes from '../../assets/image/img-shop-description.png';
 import '../../assets/css/login.css';
 
 const LoginTemplate = (props) => {
-  const headerHeight = useContext(HeaderHeightContext);
-  const { title, children } = props;
+  const { title, children, headerHeight } = props;
   const [templateHeight, setTemplateHeight] = useState(0);
   const template = useRef();
   useEffect(() => {
-    debounce(
-      setTemplateHeight(template.current.clientHeight - headerHeight),
-      50
-    );
-  }, [headerHeight]);
-  useEffect(() => {
     const handleResize = debounce(
-      () => setTemplateHeight(template.clientHeight - headerHeight),
+      () => setTemplateHeight(template?.current?.clientHeight - headerHeight),
       50
     );
-
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   });

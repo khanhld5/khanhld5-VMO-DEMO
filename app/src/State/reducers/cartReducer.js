@@ -1,6 +1,18 @@
 import * as act from '../../Constant/constant';
 import produce from 'immer';
 
+const total = (products) => {
+  if (products.length > 1) {
+    let total = 0;
+    for (let item of products) {
+      total += item.product.price * item.quantity;
+    }
+    return total;
+  }
+
+  return products[0].product.price * products[0].quantity;
+};
+
 const cartReducer = produce((draft, action) => {
   const payload = action.payload;
   switch (action.type) {
@@ -21,17 +33,11 @@ const cartReducer = produce((draft, action) => {
     case act.CART_DESTROY:
       return (draft = {});
 
-    case act.CART_ORDER:
-      {
-        draft.date = payload.date;
-      }
-      break;
     case act.CART_CHECK_OUT:
-      {
-        draft.products = [];
-        draft.total = 0;
-      }
+      draft.products = [];
+      draft.total = 0;
       break;
+
     case act.CART_ADD_PRODUCT: {
       if (draft.products && draft.products.length)
         if (
@@ -57,6 +63,7 @@ const cartReducer = produce((draft, action) => {
             quantity: payload.quantity,
           },
         ];
+      draft.total = total(draft.products);
       return draft;
     }
 
@@ -66,6 +73,7 @@ const cartReducer = produce((draft, action) => {
           (ele) => ele.product.id !== item
         );
       }
+      draft.total = total(draft.products);
       return draft;
     }
     case act.CART_INCREASE_QUANTITY: {
@@ -75,8 +83,10 @@ const cartReducer = produce((draft, action) => {
           break;
         }
       }
+      draft.total = total(draft.products);
       return draft;
     }
+
     case act.CART_DECREASE_QUANTITY: {
       for (let item of draft.products) {
         if (item.product.id === payload.productId) {
@@ -84,6 +94,7 @@ const cartReducer = produce((draft, action) => {
           break;
         }
       }
+      draft.total = total(draft.products);
       return draft;
     }
     default:

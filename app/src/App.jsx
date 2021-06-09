@@ -5,7 +5,6 @@ import history from './history.js';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch,
   faShoppingCart,
   faCartArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
@@ -24,11 +23,9 @@ import Cart from './Component/cart/cart';
 import Collection from './Component/collection/collection';
 import ProductDetail from './Component/product-detail/productDetail';
 import UserInfomation from './Component/userInfo/userInfomation';
-import {
-  handleUserInit,
-  handleUserLogout,
-} from './State/actions/userAction.js';
+import { handleUserLogout } from './State/actions/userAction.js';
 import CheckOut from './Component/checkout/checkout.jsx';
+import SearchBar from './Component/search-bar/searchBar.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -159,23 +156,7 @@ function App() {
               <Link to='/' className='block px-3'>
                 <img id='logo' src={logo} alt='logo' />
               </Link>
-              <form
-                style={{ borderColor: '#02f5f5' }}
-                className='flex m-auto w-2/5 rounded-md border-2 border-solid'
-              >
-                <input
-                  type='text'
-                  placeholder='What on your mind ?'
-                  className='block bg-transparent w-full px-4 py-2 outline-none text-xl text-gray-800 '
-                />
-                <button
-                  style={{ margin: '2px', background: '#02f5f5' }}
-                  type='submit'
-                  className='inline-block px-3 outline-none rounded text-white text-2xl'
-                >
-                  <FontAwesomeIcon icon={faSearch} />
-                </button>
-              </form>
+              <SearchBar />
               <Link
                 to={Object.keys(user).length ? '/cart' : '/login'}
                 style={{ color: '#02f5f5' }}
@@ -209,7 +190,7 @@ function App() {
             <Route exact path='/'>
               <Home />
             </Route>
-            <Route path='/collection'>
+            <Route path='/collection/:search?/:category?'>
               <Collection />
             </Route>
             <Route path='/productDetail/:id'>
@@ -244,6 +225,15 @@ function App() {
                   <LoginTemplate title='register' headerHeight={headerHeight}>
                     <Register />
                   </LoginTemplate>
+                </Route>
+                <Route path='/userInfo'>
+                  <Redirect to='/login' />
+                </Route>
+                <Route path='/cart'>
+                  <Redirect to='/login' />
+                </Route>
+                <Route path='/checkout'>
+                  <Redirect to='/login' />
                 </Route>
               </>
             )}

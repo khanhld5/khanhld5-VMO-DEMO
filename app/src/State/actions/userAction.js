@@ -16,21 +16,14 @@ export const handleUserGetOrders = (url) => async (dispatch, getState) => {
     const res = await axios_auth(token).get(url, {
       params: { userId },
     });
-    if (user.orders.length !== res.data.orders.length)
-      dispatch({
-        type: act.USER_GET_ORDERS,
-        payload: {
-          orders: res.data.orders,
-          access_token: res.data.access_token,
-        },
-      });
-    else
-      dispatch({
-        type: act.USER_RENEW_TOKEN,
-        payload: {
-          access_token: res.data.access_token,
-        },
-      });
+    dispatch({
+      type: act.USER_GET_ORDERS,
+      payload: {
+        orders: res.data.orders,
+        access_token: res.data.access_token,
+      },
+    });
+
     storeUser(getState().user);
   } catch (err) {
     if (err.response.status === 401) {

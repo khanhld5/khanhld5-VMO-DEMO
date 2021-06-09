@@ -33,3 +33,8 @@ export const RECEIVE_ORDER = 'Received';
 export const DELIVER_ORDER = 'Delivering';
 export const DELIVERED = 'Delivered';
 export const RATED = 'User rated';
+
+//sort
+
+export const LOW_TO_HIGH = 'asc';
+export const HIGH_TO_LOW = 'desc';

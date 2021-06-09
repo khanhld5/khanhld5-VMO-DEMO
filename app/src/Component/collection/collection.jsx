@@ -1,42 +1,71 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ListProduct from '../product-list/listProduct';
 import Pagination from './pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare as faCheckSquareRgl } from '@fortawesome/free-regular-svg-icons';
 import '../../assets/css/collection.css';
-import axios from 'axios';
+
+import axios_base from '../../authen/baseRequest';
+import { LOW_TO_HIGH, HIGH_TO_LOW } from '../../Constant/constant';
+import { useParams } from 'react-router';
 
 const Collection = (props) => {
   const top = useRef();
   const [list, setList] = useState([]);
+  const { search, category } = useParams();
   const [pagination, setPagination] = useState({});
   const [error, setError] = useState({ visible: true, message: '' });
   const [categorys, setCategorys] = useState([]);
-  const [filters, setFilters] = useState({ category: '', price: 'lowToHigh' });
+  const [filters, setFilters] = useState({ category: '', price: LOW_TO_HIGH });
 
-  const handleGetList = (url) => {
-    axios.get(url).then(
-      (result) => {
-        setList(result.data.list);
-        setPagination(result.data.pagination);
-        setError({ visible: false, message: '' });
-      },
-      (err) => {
-        setError({ visible: true, message: err });
+  const handleGetList = async (url) => {
+    try {
+      const res = await axios_base().get(url);
+      setError({ visible: false, message: '' });
+      setPagination(res.data.pagination);
+      if (
+        res.data.list.length &&
+        res.data.list[0].hasOwnProperty('productId')
+      ) {
+        const newList = res.data.list.map((item) => item.product);
+        setList(newList);
+        return;
       }
-    );
+      setList(res.data.list);
+    } catch (err) {
+      setError({ visible: true, message: err });
+    }
+  };
+  const handleGetCategory = async () => {
+    try {
+      const res = await axios_base().get('/category');
+      setCategorys(res.data);
+      setError({ visible: false, message: '' });
+    } catch (err) {
+      setError({ visible: true, message: err });
+    }
   };
   const pageCount = (total, limit) => {
     if (total % limit > 0) return Math.floor(total / limit) + 1;
     return total / limit;
   };
   useEffect(() => {
-    handleGetList('http://localhost:8080/products?_page=1&_limit=12');
-
-    const categorysInit = [
-      { id: 1, title: 'food' },
-      { id: 2, title: 'drink' },
-    ];
-    setCategorys(categorysInit);
-  }, []);
+    if (!categorys.length) {
+      handleGetCategory();
+    }
+    if (filters.category === '') {
+      handleGetList(
+        `/products?_page=1&_limit=12${
+          search?.length ? '&title_like=' + search : ''
+        }&_sort=price&_order=${filters.price}`
+      );
+      return;
+    }
+    handleGetList(
+      `/product_in_category?_page=1&_limit=12&_expand=product&categoryId=${filters.category}&_sort=price&_order=${filters.price}`
+    );
+  }, [search, filters.price, filters.category]);
 
   useEffect(() => {
     window.scrollTo({
@@ -47,14 +76,29 @@ const Collection = (props) => {
   }, [list]);
 
   const handleFilterCategory = (category) => {
-    setFilters({ ...filters, category });
+    if (category !== filters.category) {
+      setFilters({ ...filters, category });
+      return;
+    }
+    setFilters({ ...filters, category: '' });
+    return;
   };
   const handleFilterPrice = (price) => {
     setFilters({ ...filters, price });
   };
 
   const handlePagination = (page) => {
-    handleGetList(`http://localhost:8080/products?_page=${page}&_limit=12`);
+    if (filters.category === '') {
+      handleGetList(
+        `/products?_page=${page}&_limit=12${
+          search?.length ? '&title_like=' + search : ''
+        }&_sort=price&_order=${filters.price}`
+      );
+      return;
+    }
+    handleGetList(
+      `/product_in_category?_page=${page}&_limit=12&_expand=product&categoryId=${filters.category}&_sort=price&_order=${filters.price}`
+    );
   };
   return (
     <section ref={top} className='collection container flex mt-10 m-auto'>
@@ -87,25 +131,35 @@ const Collection = (props) => {
             >
               <p className='text-xl'>Filter by price</p>
               <ul className='ml-3'>
-                <li onClick={() => handleFilterPrice('lowToHigh')}>
-                  <input
-                    type='checkbox'
-                    checked={filters.price === 'lowToHigh'}
-                  />
+                <li onClick={() => handleFilterPrice(LOW_TO_HIGH)}>
+                  <span>
+                    <FontAwesomeIcon
+                      icon={
+                        filters.price === LOW_TO_HIGH
+                          ? faCheckSquare
+                          : faCheckSquareRgl
+                      }
+                    />
+                  </span>
                   <span className='ml-3 text-lg'>From lowest</span>
                 </li>
-                <li onClick={() => handleFilterPrice('highToLow')}>
-                  <input
-                    type='checkbox'
-                    checked={filters.price === 'highToLow'}
-                  />
+                <li onClick={() => handleFilterPrice(HIGH_TO_LOW)}>
+                  <span>
+                    <FontAwesomeIcon
+                      icon={
+                        filters.price === HIGH_TO_LOW
+                          ? faCheckSquare
+                          : faCheckSquareRgl
+                      }
+                    />
+                  </span>
                   <span className='ml-3 text-lg'>From highest</span>
                 </li>
               </ul>
             </li>
             <li
               className={`${
-                categorys.some((item) => item.title === filters.category)
+                categorys.some((item) => item.id === filters.category)
                   ? 'active'
                   : ''
               } select-none mb-2 px-3 py-1 rounded-b-md `}
@@ -116,12 +170,17 @@ const Collection = (props) => {
                   ? categorys.map((item) => (
                       <li
                         key={item.id}
-                        onClick={() => handleFilterCategory(item.title)}
+                        onClick={() => handleFilterCategory(item.id)}
                       >
-                        <input
-                          type='checkbox'
-                          checked={filters.category === item.title}
-                        />
+                        <span>
+                          <FontAwesomeIcon
+                            icon={
+                              filters.category === item.id
+                                ? faCheckSquare
+                                : faCheckSquareRgl
+                            }
+                          />
+                        </span>
                         <span className='ml-3 text-lg capitalize'>
                           {item.title}
                         </span>

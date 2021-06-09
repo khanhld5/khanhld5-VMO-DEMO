@@ -35,6 +35,42 @@
       "sdt": "3141414131",
       "admin": false,
       "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
+    },
+    {
+      "id": "82891ab7-b5d6-498a-ac9c-437345953f99",
+      "username": "lekhanh12",
+      "password": "@Khanh1997",
+      "email": "radfasdasd@ada.com",
+      "fullname": "lekhanh",
+      "address": "alskdhjalskjd aksdjalksdja",
+      "cmt": "31231231",
+      "sdt": "123123123132",
+      "admin": false,
+      "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
+    },
+    {
+      "id": "c8ca99fd-9524-4c79-885b-479070ca5320",
+      "username": "123123123sadasdasd",
+      "password": "@Khanh1997",
+      "email": "kjahskdfja@gac.com",
+      "fullname": "lekhanh",
+      "address": "313221asdasda",
+      "cmt": "12312",
+      "sdt": "312312",
+      "admin": false,
+      "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
+    },
+    {
+      "id": "c8ca99fd-9524-4c79-885b-479070caab12",
+      "username": "admin",
+      "password": "123456",
+      "email": "snowCotAdmin@gmail.com",
+      "fullname": "lekhanh",
+      "address": "313221asdasda",
+      "cmt": "12312",
+      "sdt": "312312",
+      "admin": true,
+      "avatar": "https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg"
     }
   ]
 }

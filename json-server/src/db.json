@@ -19,219 +19,27 @@
     {
       "id": "7647a5f1-98a5-4a59-9069-11f361261b53",
       "title": "Chicken dinner"
+    },
+    {
+      "id": "cdf35422-299e-4da6-ba3d-6f0cc6d6d381",
+      "title": "chickies"
     }
   ],
   "product_in_category": [
     {
-      "id": "226fef66-1d0a-45e2-89a0-bb54bcc22336",
+      "id": "31b4f640-cd04-4746-8a8f-088badd266df",
       "categoryId": "b419c526-4c48-4333-b816-3960a9de1f63",
-      "productId": "b6dbcdbb-e2cd-49ef-964c-ff3c572485ef"
+      "productId": "026f3e53-9fc7-473f-9fd5-f7ba768ac855"
     },
     {
-      "id": "1e9588d7-a619-4f6e-8c98-f834f051d2b6",
-      "categoryId": "b419c526-4c48-4333-b816-3960a9de1f63",
-      "productId": "9e2d1d86-7ba6-47e0-adbe-0f2aa9f725bc"
-    },
-    {
-      "id": "b2402c8a-08e1-4f0f-870d-903e3cfb4040",
-      "categoryId": "b419c526-4c48-4333-b816-3960a9de1f63",
-      "productId": "1b818390-005a-41e0-b6d2-517860a55703"
-    },
-    {
-      "id": "e67b3b4d-7d7e-4f59-9ace-b3f53f76fca5",
+      "id": "a53b2980-3ace-4f13-a0c2-e4dc5d4312d9",
       "categoryId": "8aac6a85-2cc3-4148-ad40-0cc4599d492f",
-      "productId": "392be5b3-5a7e-42d8-aebc-ddedd47e5b83"
+      "productId": "e58d483c-9088-41f9-93a2-e53cdbe4f10c"
     },
     {
-      "id": "956d46de-64ed-4b90-9b62-ce4df3a435ba",
-      "categoryId": "b419c526-4c48-4333-b816-3960a9de1f63",
-      "productId": "392be5b3-5a7e-42d8-aebc-ddedd47e5b83"
-    },
-    {
-      "id": "af043011-2318-4e70-b684-3e6593bd2a7c",
-      "categoryId": "89446d09-6278-43de-95b1-4f0b753845d1",
-      "productId": "392be5b3-5a7e-42d8-aebc-ddedd47e5b83"
-    },
-    {
-      "id": "5f2b7c1d-e219-4b4d-b391-c6a767ca70ef",
-      "categoryId": "b419c526-4c48-4333-b816-3960a9de1f63",
-      "productId": "d7e9d3ad-ba09-4974-b887-ad1690a8c01b"
-    },
-    {
-      "id": "45d44024-709e-4ef4-bc02-3ef6eda8b78c",
-      "categoryId": "f616d0f9-9a90-44b1-a8a0-e2c579a395d9",
-      "productId": "392be5b3-5a7e-42d8-aebc-ddedd47e5b83"
-    },
-    {
-      "id": "6c0365fe-1edc-49ee-83f6-811996f8834b",
-      "categoryId": "89446d09-6278-43de-95b1-4f0b753845d1",
-      "productId": "91e021a2-76f2-40c2-be5d-aad95ff3f2a0"
-    },
-    {
-      "id": "70f7f1c0-ec98-4d5c-8b3e-d7bacbf0497b",
-      "categoryId": "7647a5f1-98a5-4a59-9069-11f361261b53",
-      "productId": "91e021a2-76f2-40c2-be5d-aad95ff3f2a0"
-    },
-    {
-      "id": "86172345-053b-4700-a20b-e8d89c9a9b3a",
-      "categoryId": "b419c526-4c48-4333-b816-3960a9de1f63",
-      "productId": "91e021a2-76f2-40c2-be5d-aad95ff3f2a0"
-    }
-  ],
-  "products": [
-    {
-      "id": "ff1d4fdf-4a2a-472b-81ec-74e9c036b46a",
-      "title": "Chocolate cookie 1",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 10000,
-      "quantity": 100,
-      "left": 60,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "ff1d4asd-4a2a-472b-81ec-74e9c036b46a",
-      "title": "Chocolate cookie 1",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 10000,
-      "quantity": 106,
-      "left": 66,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "974968f0-8c8b-40f0-93a0-0212629c4705",
-      "title": "Spicy chocolate cookie",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 1000000,
-      "quantity": 100,
-      "left": 60,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "bf760e91-9cb9-42e8-81ea-ffed68014c75",
-      "title": "Chetosh",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 300000,
-      "quantity": 100,
-      "left": 10,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "546b92ec-c828-4f97-a9c4-7beb6113ec2f",
-      "title": "oreo",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 100,
-      "left": 60,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "6b373616-fe1f-4162-9b8b-27c09635478e",
-      "title": "Sweet chocolate cookie 6",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 100,
-      "left": 60,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "669a3cdc-c569-4d0e-88a7-788c972eef31",
-      "title": "Sweet chocolate cookie 8",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 105,
-      "left": 65,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "f84c799c-953b-4556-b5ae-e73584ac067a",
-      "title": "Sweet chocolate cookie 9",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 105,
-      "left": 65,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "ea6824b1-cf9b-4291-83b9-5d12cb565de5",
-      "title": "Sweet chocolate cookie 10",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 111,
-      "left": 71,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "20bf3c61-7cb9-4d4b-8b2a-360020cf48d6",
-      "title": "Sweet chocolate cookie 11",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 116,
-      "left": 76,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "1ea6e707-d953-4f8c-9a75-8d07ac9afeeb",
-      "title": "Sweet chocolate cookie 12",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 105,
-      "left": 65,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "d7e9d3ad-ba09-4974-b887-ad1690a8c01b",
-      "title": "Sweet chocolate cookie 13",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 120,
-      "left": 80,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "392be5b3-5a7e-42d8-aebc-ddedd47e5b83",
-      "title": "Sweet chocolate cookie 14",
-      "image": "https://d1uz88p17r663j.cloudfront.net/original/5b069c3ed2feea79377014f6766fcd49_Original_NTH_Chocolate_Chip_Cookie.jpg",
-      "price": 150000,
-      "quantity": 196,
-      "left": 156,
-      "brand": "CookieBaGiang",
-      "origin": "VietNam",
-      "description": "<span>Bạn muốn trải nghiệm 1 sản phẩm nhập khẩu từ Hàn Quốc do người Hàn Quốc sản xuất trên dây truyền Hàn Quốc, hãy lựa chọn 1 chiếc bánh mang nhãn hiệu Lotte.<br/>Khách nào là fan của bánh chocopie thì không thể bỏ qua bánh hương vị dưa hấu thú vị này đâu nhé.<br/>Bánh có 3 lớp: lớp ngoài cùng bao phủ socola thơm nức, bên trong là bánh xốp mềm, cuối cùng là lớp nhân dưa hấu dai dai thơm ngon. Đặc biệt cả “vỏ xanh” và “nhân hồng” đều đậm vị dưa hấu ngon tuyệt.<br/>Hiện nay, bánh chocopie đang là một trong những món ăn vặt được nhiều người yêu thích bởi hương vị thơm ngon từ socola của nó.</span>"
-    },
-    {
-      "id": "91e021a2-76f2-40c2-be5d-aad95ff3f2a0",
-      "title": "choco",
-      "image": "https://zingsweets.com/wp-content/uploads/2020/11/socola-zingsweet-chocolate-2-1400x793.jpg?x97403",
-      "price": 200000,
-      "quantity": 0,
-      "left": 0,
-      "brand": "asc",
-      "origin": "alsck",
-      "description": "<span>easdasdassssssssssss   ssssssssssss<br/>sdssssssssssssss ssssss<br/>assss sssssssssssss<br/>dasssss<br/>sdsssssqw<br/>asddqsdasdasdasd as d as dasd<br/>asdas ndasd asd a<br/>dad a da d asd<br/>sda dadasda<br/>sd da sd asd as da sd asd<br/>asddasd as da sd asd as </span>"
+      "id": "b0d551db-ecf3-4459-959d-09b0ed5e2695",
+      "categoryId": "8aac6a85-2cc3-4148-ad40-0cc4599d492f",
+      "productId": "0ef69fd4-5ea2-45b0-b84b-d5f1d80cd816"
     }
   ]
 }

@@ -39,7 +39,7 @@ const Collection = (props) => {
   };
   const handleGetCategory = async () => {
     try {
-      const res = await axios_base().get('/category');
+      const res = await axios_base().get('/categories');
       setCategorys(res.data);
       setError({ visible: false, message: '' });
     } catch (err) {
@@ -56,14 +56,16 @@ const Collection = (props) => {
     }
     if (filters.category === '') {
       handleGetList(
-        `/products?_page=1&_limit=12${
-          search?.length ? '&title_like=' + search : ''
-        }&_sort=price&_order=${filters.price}`
+        `/products?page=1&limit=12${
+          search?.length ? '&s=' + search : ''
+        }&sort=price&order=${filters.price}`
       );
       return;
     }
     handleGetList(
-      `/product_in_category?_page=1&_limit=12&_expand=product&categoryId=${filters.category}&_sort=price&_order=${filters.price}`
+      `/products?page=1&limit=12${
+        search?.length ? '&s=' + search : ''
+      }&categoryId=${filters.category}&sort=price&order=${filters.price}`
     );
   }, [search, filters.price, filters.category]);
 
@@ -90,14 +92,16 @@ const Collection = (props) => {
   const handlePagination = (page) => {
     if (filters.category === '') {
       handleGetList(
-        `/products?_page=${page}&_limit=12${
-          search?.length ? '&title_like=' + search : ''
-        }&_sort=price&_order=${filters.price}`
+        `/products?page=${page}&limit=12${
+          search?.length ? '&s=' + search : ''
+        }&sort=price&order=${filters.price}`
       );
       return;
     }
     handleGetList(
-      `/product_in_category?_page=${page}&_limit=12&_expand=product&categoryId=${filters.category}&_sort=price&_order=${filters.price}`
+      `/products?page=${page}&limit=12${
+        search?.length ? '&s=' + search : ''
+      }&categoryId=${filters.category}&sort=price&order=${filters.price}`
     );
   };
   return (

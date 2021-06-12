@@ -27,8 +27,9 @@ const UserInfo = () => {
   const [cmt, setCMT] = useState('');
   const [sdt, setSDT] = useState('');
   const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState('');
 
-  const handleSetToDefault = () => {
+  const setToDefault = () => {
     setFullname(user.fullname);
     setAddress(user.address);
     setCMT(user.cmt);
@@ -37,10 +38,23 @@ const UserInfo = () => {
   };
 
   useEffect(() => {
-    handleSetToDefault();
+    setToDefault();
   }, [user]);
 
-  const handleValidate = () => {
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setAvatar(reader.result);
+    };
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.currentTarget.files[0];
+    previewFile(file);
+  };
+
+  const validate = () => {
     const newError = {
       email: { visible: false, message: '' },
       fullname: { visible: false, message: '' },
@@ -114,13 +128,14 @@ const UserInfo = () => {
     }
     return passed;
   };
-  const handleCheckIfChange = () => {
+  const checkChange = () => {
     const payload = {
       fullname,
       address,
       cmt,
       sdt,
       email,
+      avatar,
     };
     let passed = false;
     for (let item in payload) {
@@ -131,8 +146,8 @@ const UserInfo = () => {
     return passed;
   };
   const handleEditUserInfo = () => {
-    if (handleValidate()) {
-      if (!handleCheckIfChange()) {
+    if (validate()) {
+      if (!checkChange()) {
         if (debounce.current) {
           clearTimeout(debounce.current);
         }
@@ -154,6 +169,7 @@ const UserInfo = () => {
         cmt,
         sdt,
         email,
+        avatar,
       })
     );
     setEdit(false);
@@ -161,7 +177,7 @@ const UserInfo = () => {
 
   const handleEnableEdit = () => {
     if (edit) {
-      if (!handleCheckIfChange()) {
+      if (!checkChange()) {
         setEdit(false);
         return;
       }
@@ -173,7 +189,7 @@ const UserInfo = () => {
 
   const handleEnableDiscard = (e) => {
     e.preventDefault();
-    if (!handleCheckIfChange()) {
+    if (!checkChange()) {
       setEdit(false);
       return;
     }
@@ -183,7 +199,7 @@ const UserInfo = () => {
   const handleDiscardChange = () => {
     setDiscardChange(false);
     setEdit(false);
-    handleSetToDefault();
+    setToDefault();
   };
 
   return (
@@ -199,7 +215,7 @@ const UserInfo = () => {
         </div>
         <div className='flex items-center ml-auto'>
           <button
-            className='outline-none focus:outline-none align-middle 
+            className='outline-none focus:outline-none align-middle
             text-green-300 hover:text-green-400
              transition-all ease-in-out duration-300'
             type='button'
@@ -228,7 +244,7 @@ const UserInfo = () => {
           </p>
           <div className='flex items-center mb-5'>
             <span
-              className='w-28 text-right mr-5 pb-0.5 
+              className='w-28 text-right mr-5 pb-0.5
             text-2xl italic text-gray-600'
             >
               Fullname:
@@ -357,7 +373,7 @@ const UserInfo = () => {
               <button
                 className='ml-20 px-4 py-1 rounded outline-none focus:outline-none
                  bg-purple-300 text-yellow-100
-                  hover:bg-purple-400 transition-all 
+                  hover:bg-purple-400 transition-all
                   ease-in-out duration-300 '
                 type='submit'
               >
@@ -367,7 +383,7 @@ const UserInfo = () => {
                 onClick={handleEnableDiscard}
                 className='ml-24 px-4 py-1 rounded outline-none focus:outline-none
                  bg-yellow-100 text-blue-400
-                  hover:bg-yellow-200 transition-all 
+                  hover:bg-yellow-200 transition-all
                   ease-in-out duration-300 '
                 type='button'
               >
@@ -384,20 +400,28 @@ const UserInfo = () => {
         >
           <div className='m-auto w-1/2 wImage square rounded-full'>
             <span className='image cover'>
-              <img src={user.avatar} alt={user.username} />
+              <img
+                src={avatar?.length ? avatar : user.avatar}
+                alt={user.username}
+              />
             </span>
           </div>
           <div className='text-center mt-3'>
             <label
               style={{ fontFamily: "'Pattaya', sans-serif" }}
-              className='inline-block m-auto px-3 py-1 
-            bg-green-100 rounded text-blue-300'
+              className={`inline-block m-auto px-3 py-1 rounded ${
+                edit
+                  ? 'bg-green-100 text-blue-300'
+                  : 'bg-gray-400 text-white cursor-not-allowed'
+              }
+            `}
             >
               Choose image
               <input
-                type='file'
+                type={edit ? 'file' : ''}
                 accept='image/png, image/jpeg'
                 className='hidden'
+                onChange={handleFileChange}
               />
             </label>
           </div>
@@ -407,7 +431,7 @@ const UserInfo = () => {
         className={`fixed px-5 py-2 ${
           alert ? 'top-24 ' : '-top-12 '
         }left-1/2 transform -translate-x-1/2 z-50 bg-blue-300
-        rounded-3xl text-white font-semibold text-xl shadow-xl 
+        rounded-3xl text-white font-semibold text-xl shadow-xl
         transition-all ease-in-out duration-300`}
       >
         <p>Nothing had been change just yet</p>

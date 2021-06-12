@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleCartAddProduct } from '../../State/actions/cartAction';
 import {
@@ -13,6 +13,7 @@ import '../../assets/css/product.css';
 
 const Product = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.user);
   const { item, itemWidth, marginRight } = props;
   const [hoverDetail, setHoverDetail] = useState(false);
@@ -20,7 +21,7 @@ const Product = (props) => {
   const handleAddToCart = () => {
     if (Object.keys(user).length) {
       dispatch(handleCartAddProduct(item, 1));
-    }
+    } else history.push('/login');
   };
 
   return (

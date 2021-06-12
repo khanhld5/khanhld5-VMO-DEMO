@@ -24,6 +24,46 @@ const ProductDetail = (props) => {
   const [clickable, setClickable] = useState(true);
   const [error, setError] = useState({ visible: false, message: '' });
 
+  //handle
+  const handleIncreaseQuantity = () => {
+    if (product.left === 0) return;
+    if (quantity === product.left) return;
+    setQuantity(quantity + 1);
+  };
+  const handleDecreaseQuantity = () => {
+    if (product.left === 0) return;
+    if (quantity === 1) return;
+    setQuantity(quantity - 1);
+  };
+  const handleAddToCart = () => {
+    const productInCart = cart.products.find(
+      (item) => item.product.id === product.id
+    );
+    const productPush = {
+      id: product.id,
+      title: product.title,
+      category: product.category,
+      image: product.image,
+      price: product.price,
+      quantity: product.quantity,
+      left: product.left,
+      brand: product.brand,
+      origin: product.origin,
+    };
+    if (productInCart && productInCart.quantity + quantity > product.left) {
+      dispatch(
+        handleCartAddProduct(productPush, product.left - productInCart.quantity)
+      );
+      setClickable(false);
+      setError({
+        visible: true,
+        message: 'You have reached to the limit item left of this product!',
+      });
+      return;
+    }
+    dispatch(handleCartAddProduct(productPush, quantity));
+  };
+
   //get product
 
   useEffect(() => {
@@ -67,47 +107,8 @@ const ProductDetail = (props) => {
       )
         setClickable(false);
     }
-  });
+  }, [cart]);
 
-  //handle
-  const handleIncreaseQuantity = () => {
-    if (product.left === 0) return;
-    if (quantity === product.left) return;
-    setQuantity(quantity + 1);
-  };
-  const handleDecreaseQuantity = () => {
-    if (product.left === 0) return;
-    if (quantity === 1) return;
-    setQuantity(quantity - 1);
-  };
-  const handleAddToCart = () => {
-    const productInCart = cart.products.find(
-      (item) => item.product.id === product.id
-    );
-    const productPush = {
-      id: product.id,
-      title: product.title,
-      category: product.category,
-      image: product.image,
-      price: product.price,
-      quantity: product.quantity,
-      left: product.left,
-      brand: product.brand,
-      origin: product.origin,
-    };
-    if (productInCart && productInCart.quantity + quantity > product.left) {
-      dispatch(
-        handleCartAddProduct(productPush, product.left - productInCart.quantity)
-      );
-      setClickable(false);
-      setError({
-        visible: true,
-        message: 'You have reached to the limit item left of this product!',
-      });
-      return;
-    }
-    dispatch(handleCartAddProduct(productPush, quantity));
-  };
   if (Object.keys(product).length) {
     return (
       <div>

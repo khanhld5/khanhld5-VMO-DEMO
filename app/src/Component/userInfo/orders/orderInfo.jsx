@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleUserGetOrders } from '../../../State/actions/userAction';
 import OrderList from './orderList';
@@ -10,7 +9,6 @@ const OrderInfo = (props) => {
   useEffect(() => {
     dispatch(handleUserGetOrders('/auth/orders'));
   }, []);
-  console.log(user.orders);
   return (
     <div>
       <OrderList list={user.orders} />

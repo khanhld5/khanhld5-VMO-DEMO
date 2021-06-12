@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../../Constant/constant';
 import { Link } from 'react-router-dom';
-import history from '../../history.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleUserRegister } from '../../State/actions/userAction';
 

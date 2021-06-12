@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import CartTable from './cartTable';
@@ -7,7 +7,6 @@ import cartEmpty from '../../assets/image/cart-empty.jpg';
 const Cart = (props) => {
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
   return (
     <div>
       {Object.keys(user).length ? '' : <Redirect to='/login' />}

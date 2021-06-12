@@ -1,10 +1,13 @@
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const { axios_base } = require('./ultils/axios_base');
 const path = require('path');
+const { cloudinary } = require('./ultils/cloudinary');
 const orderStatus = require('./orderStatus.js');
 const jsonServer = require('json-server');
 const queryString = require('query-string');
 const jwt = require('jsonwebtoken');
+const { error } = require('console');
 
 const SECRET_KEY = 'leKhanh_dep_trai';
 const expiresIn = '1w';
@@ -12,8 +15,8 @@ const expiresIn = '1w';
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 
+const allProducts = [];
 const middlewares = jsonServer.defaults();
-
 const userDb = JSON.parse(fs.readFileSync('./src/users.json', 'UTF-8'));
 const productsDb = JSON.parse(fs.readFileSync('./src/db.json', 'UTF-8'));
 const commentsDb = JSON.parse(fs.readFileSync('./src/comments.json', 'UTF-8'));
@@ -21,7 +24,6 @@ const receiversDb = JSON.parse(
   fs.readFileSync('./src/receivers.json', 'UTF-8')
 );
 const ordersDb = JSON.parse(fs.readFileSync('./src/orders.json', 'UTF-8'));
-const goodsDb = JSON.parse(fs.readFileSync('./src/goods.json', 'UTF-8'));
 
 const writeJsonFile = (writePath, data) => {
   const jsonString = JSON.stringify(data, null, 2);
@@ -33,6 +35,87 @@ const writeJsonFile = (writePath, data) => {
     }
   });
 };
+
+const setAllProducts = (data) => {
+  allProducts.length = 0;
+  data.forEach((item) => allProducts.push(item));
+};
+
+const getAllProduct = () => {
+  axios_base()
+    .get('/product/read.php')
+    .then(
+      (res) => {
+        const format = [];
+        res.data.list.forEach((item) => {
+          const newData = {
+            ...item,
+            left: item.productLeft,
+          };
+          delete newData.productLeft;
+
+          newData.price = parseInt(newData.price);
+          newData.quantity = parseInt(newData.quantity);
+          newData.left = parseInt(newData.left);
+
+          format.push(newData);
+        });
+        setAllProducts(format);
+      },
+      (error) => error.response.data
+    );
+};
+getAllProduct();
+
+const createProduct = async (product) => {
+  try {
+    const res = await axios_base().post('/product/create.php', { product });
+    return { success: true, message: res.data.message };
+  } catch (error) {
+    return { error: true, message: error.response.data.message };
+  }
+};
+const editProduct = async (product) => {
+  try {
+    const res = await axios_base().post('/product/update.php', { product });
+    return { success: true, message: res.data.message };
+  } catch (error) {
+    return { error: true, message: error.response.data.message };
+  }
+};
+const removeProduct = async (productId) => {
+  try {
+    const res = await axios_base().delete('/product/delete.php', {
+      data: {
+        id: productId,
+      },
+    });
+    return { success: true, message: res.data.message };
+  } catch (error) {
+    return { error: true, message: error.response.data.message };
+  }
+};
+
+const searchProduct = async (keyword) => {
+  try {
+    const res = await axios_base().get('/product/search.php', {
+      params: {
+        s: keyword,
+      },
+    });
+    return { success: true, data: res.data.list };
+  } catch (error) {
+    return { error: true, message: error.response.data.message };
+  }
+};
+
+const getProductById = (productId) => {
+  const product = allProducts.find((item) => item.id === productId);
+  if (product) {
+    return product;
+  } else return { error: true, message: 'No product' };
+};
+
 const getUserById = (id) => userDb.users.find((user) => user.id === id);
 const getUserReceiversById = (id) => {
   const userId = Object.keys(receiversDb.users).find((item) => item === id);
@@ -55,9 +138,7 @@ const getProductCommentById = (id) => {
 };
 
 const getProductCategoryById = (productId) => {
-  const product = JSON.parse(
-    JSON.stringify(productsDb.products.find((item) => item.id === productId))
-  );
+  const product = JSON.parse(JSON.stringify(getProductById(productId)));
   product.category = [];
   productsDb.categories.forEach((cate) => {
     productsDb.product_in_category.forEach((item) => {
@@ -77,6 +158,16 @@ server.use(function (req, res, next) {
   );
   next();
 });
+
+// upload file
+const upload = async (file) => {
+  try {
+    const res = await cloudinary.uploader.upload(file);
+    return res;
+  } catch (error) {
+    return { error: true, message: 'Unable to upload this file' };
+  }
+};
 
 // Create a token from a payload
 function createToken(payload) {
@@ -116,12 +207,129 @@ function isAdmin({ username, password }) {
 
 server.use(jsonServer.bodyParser);
 
-//For admin
+//For general use
+
+server.get('/products', async (req, res) => {
+  const { page, limit, s, sort, order, categoryId } = req.query;
+  const result = [];
+  if (!s) {
+    if (categoryId) {
+      const productOfCate = [];
+      const cateProduct = productsDb.product_in_category.filter(
+        (item) => item.categoryId === categoryId
+      );
+      cateProduct.forEach((item) =>
+        allProducts.forEach((product) => {
+          if (item.productId === product.id) {
+            productOfCate.push(product);
+          }
+        })
+      );
+      const sortProductOfCate = productOfCate.sort(
+        (cur, acc) => cur.price - acc.price
+      );
+      if (order === 'desc') {
+        sortProductOfCate.reverse();
+      }
+      for (let i = (page - 1) * limit; i < limit * page; i++) {
+        if (sortProductOfCate[i]) result.push(sortProductOfCate[i]);
+      }
+      if (result.length) {
+        res.status(200).jsonp({
+          list: result,
+          pagination: { page, limit, total: sortProductOfCate.length },
+        });
+        return;
+      }
+      res.status(404).jsonp({
+        message: 'No product just yet',
+      });
+      return;
+    }
+    const sortAllProducts = allProducts.sort(
+      (cur, acc) => cur.price - acc.price
+    );
+    if (order === 'desc') {
+      sortAllProducts.reverse();
+    }
+    for (let i = (page - 1) * limit; i < limit * page; i++) {
+      if (sortAllProducts[i]) result.push(sortAllProducts[i]);
+    }
+    if (result.length) {
+      res.status(200).jsonp({
+        list: result,
+        pagination: { page, limit, total: allProducts.length },
+      });
+      return;
+    }
+    res.status(404).jsonp({
+      message: 'No product just yet',
+    });
+    return;
+  } else {
+    const searchResult = await searchProduct(s);
+    if (searchResult.hasOwnProperty('success')) {
+      if (categoryId) {
+        const productOfCate = [];
+        const cateProduct = productsDb.product_in_category.filter(
+          (item) => item.categoryId === categoryId
+        );
+        cateProduct.forEach((item) =>
+          searchResult.data.forEach((product) => {
+            if (item.productId === product.id) {
+              productOfCate.push(product);
+            }
+          })
+        );
+        const sortProductOfCate = productOfCate.sort(
+          (cur, acc) => cur.price - acc.price
+        );
+        if (order === 'desc') {
+          sortProductOfCate.reverse();
+        }
+        for (let i = (page - 1) * limit; i < limit * page; i++) {
+          if (sortProductOfCate[i]) result.push(sortProductOfCate[i]);
+        }
+        if (result.length) {
+          res.status(200).jsonp({
+            list: result,
+            pagination: { page, limit, total: sortProductOfCate.length },
+          });
+          return;
+        }
+        res.status(404).jsonp({
+          message: 'No product just yet',
+        });
+        return;
+      }
+      const sortSearchResult = searchResult.data.sort(
+        (cur, acc) => cur.price - acc.price
+      );
+      if (order === 'desc') {
+        sortSearchResult.reverse();
+      }
+      for (let i = (page - 1) * limit; i < limit * page; i++) {
+        if (sortSearchResult[i]) result.push(sortSearchResult[i]);
+      }
+      if (result.length) {
+        res.status(200).jsonp({
+          list: result,
+          pagination: { page, limit, total: searchResult.data.length },
+        });
+        return;
+      }
+    }
+    res.status(404).jsonp({
+      message: 'No product just yet',
+    });
+    return;
+  }
+});
 
 server.get('/product-detail', (req, res) => {
   const { id } = req.query;
   if (id != null && id.length) {
-    let result = productsDb.products.find((product) => product.id == id);
+    let result = getProductById(id);
     if (result) {
       //get categorys
       let relatedList = [];
@@ -139,11 +347,7 @@ server.get('/product-detail', (req, res) => {
         for (let item of productsDb.product_in_category) {
           if (item.categoryId === category[0].id) {
             if (count === 4) break;
-            relatedList.push(
-              productsDb.products.find(
-                (product) => product.id === item.productId
-              )
-            );
+            relatedList.push(getProductById(item.productId));
             count++;
           }
         }
@@ -182,6 +386,8 @@ server.get('/product-detail', (req, res) => {
     res.status(400).jsonp({ error: 'No valid product id' });
   }
 });
+
+//For admin
 
 server.post('/admin/login', (req, res) => {
   const { username, password } = req.body;
@@ -264,7 +470,7 @@ server.get('/admin/checkAvaiable', (req, res) => {
 
 server.get('/admin/products', (req, res) => {
   const { page, limit } = req.query;
-  const products = JSON.parse(JSON.stringify(productsDb.products)).reverse();
+  const products = JSON.parse(JSON.stringify(allProducts));
   const result = [];
   for (let i = (page - 1) * limit; i < limit * page; i++) {
     if (products[i]) result.push(getProductCategoryById(products[i].id));
@@ -275,18 +481,25 @@ server.get('/admin/products', (req, res) => {
   });
 });
 
-server.post('/admin/addProduct', (req, res) => {
+server.post('/admin/addProduct', async (req, res) => {
   const { product } = req.body;
   const newProductsDb = JSON.parse(JSON.stringify(productsDb));
   const product_in_category = newProductsDb.product_in_category;
-  const products = newProductsDb.products;
+  const image = await upload(product.image);
+
+  if (image.hasOwnProperty('error') && image.error === true) {
+    const status = 503;
+    res.status(status).json({ status, message: image.message });
+    return;
+  }
+  product.image = image.url;
 
   const newProduct = {
     id: uuidv4(),
     ...product,
   };
-  delete newProduct.categories;
-  for (let category of product.categories) {
+  delete newProduct.category;
+  for (let category of product.category) {
     const newCategory = {
       id: uuidv4(),
       categoryId: category,
@@ -294,48 +507,89 @@ server.post('/admin/addProduct', (req, res) => {
     };
     product_in_category.push(newCategory);
   }
-  products.push(newProduct);
+  const create = await createProduct(newProduct);
+  if (create.hasOwnProperty('error')) {
+    res.status(503).jsonp({ message: 'Unable to add product right now' });
+    return;
+  }
   writeJsonFile('./src/db.json', newProductsDb);
-  res.status(200).jsonp({ message: 'Adding success' });
+  if (create.hasOwnProperty('success')) {
+    res.status(200).jsonp({ message: 'Adding success' });
+    return;
+  }
 });
 
-server.patch('/admin/editProduct', (req, res) => {
+server.patch('/admin/editProduct', async (req, res) => {
   const { product } = req.body;
   const newProductsDb = JSON.parse(JSON.stringify(productsDb));
   const product_in_category = newProductsDb.product_in_category;
-  const products = newProductsDb.products;
 
-  const newProduct = {
-    id: uuidv4(),
-    ...product,
-  };
-  delete newProduct.categories;
-  for (let category of product.categories) {
-    const newCategory = {
-      id: uuidv4(),
-      categoryId: category,
-      productId: newProduct.id,
-    };
-    product_in_category.push(newCategory);
+  const currentProduct = getProductById(product.id);
+  if (!currentProduct) {
+    res
+      .status(404)
+      .jsonp({ message: 'Not found this product, it might be removed' });
+    return;
   }
-  products.push(newProduct);
+
+  for (const key in currentProduct) {
+    if (key === 'id') continue;
+    switch (key) {
+      case 'id':
+        break;
+      case 'image': {
+        if (currentProduct[key] != product[key]) {
+          const image = await upload(product.image);
+
+          if (image.hasOwnProperty('error') && image.error === true) {
+            const status = 503;
+            res.status(status).json({ status, message: image.message });
+            return;
+          }
+          currentProduct.image = image.url;
+          break;
+        }
+      }
+      case 'category': {
+        const newCategories = product_in_category.filter(
+          (item) => item.productId !== product.id
+        );
+        product.category.forEach((item) => {
+          const newCate = {
+            id: uuidv4(),
+            categoryId: item,
+            productId: product.id,
+          };
+          newCategories.push(newCate);
+        });
+        newProductsDb.product_in_category = newCategories;
+        break;
+      }
+      default:
+        if (currentProduct[key] !== product[key])
+          currentProduct[key] = product[key];
+    }
+  }
+  const edit = await editProduct(currentProduct);
+  if (edit.hasOwnProperty('error')) {
+    res.status(503).jsonp({ message: edit.error.message });
+    return;
+  }
   writeJsonFile('./src/db.json', newProductsDb);
   res.status(200).jsonp({ message: 'Adding success' });
 });
 
-server.delete('/admin/removeProduct', (req, res) => {
+server.delete('/admin/removeProduct', async (req, res) => {
   const { productId } = req.body;
-  const newProducts = productsDb.products.filter(
-    (item) => item.id !== productId
-  );
-  if (newProducts.length === 0) {
+  const remove = await removeProduct(productId);
+  if (remove.hasOwnProperty('error')) {
     res.status(400).jsonp({ message: 'No product found' });
     return;
   }
+
   const newProductInCate = productsDb.product_in_category.filter(
     (item) => item.id !== productId
   );
-  productsDb.products = newProducts;
   productsDb.product_in_category = newProductInCate;
 
   writeJsonFile('./src/db.json', productsDb);
@@ -372,11 +626,6 @@ server.patch('/admin/editCategory', (req, res) => {
 
 server.post('/admin/addProductCategory', (req, res) => {
   const { productId, categoryId } = req.body;
-  const newProductCategory = {
-    id: uuidv4(),
-    categoryId,
-    productId,
-  };
   const exist = productsDb.product_in_category.findIndex(
     (item) => item.categoryId === categoryId && item.productId === productId
   );
@@ -384,11 +633,17 @@ server.post('/admin/addProductCategory', (req, res) => {
     res.status(400).jsonp({ message: 'This product has been here' });
     return;
   }
+  const newProductCategory = {
+    id: uuidv4(),
+    categoryId,
+    productId,
+  };
   productsDb.product_in_category.push(newProductCategory);
   writeJsonFile('./src/db.json', productsDb);
   const product = getProductCategoryById(productId);
   res.status(200).jsonp({ message: 'Add success', product });
 });
+
 server.delete('/admin/removeProductCategory', (req, res) => {
   const { productId, categoryId } = req.body;
   productsDb.product_in_category = productsDb.product_in_category.filter(
@@ -413,17 +668,21 @@ server.delete('/admin/removeCategory', (req, res) => {
   res.status(200).jsonp({ message: 'Remove success' });
 });
 
-server.patch('/admin/importProduct', (req, res) => {
+server.patch('/admin/importProduct', async (req, res) => {
   const { productId, quantity } = req.body;
-  const index = productsDb.products.findIndex((item) => item.id === productId);
-  if (index < 0) {
+  const product = getProductById(productId);
+  if (product < 0) {
     res.status(400).jsonp({ message: 'Product not exist' });
     return;
   }
-  productsDb.products[index].quantity += quantity;
-  productsDb.products[index].left += quantity;
-  const result = getProductCategoryById(productsDb.products[index].id);
-  writeJsonFile('./src/db.json', productsDb);
+  product.quantity += quantity;
+  product.left += quantity;
+  const edit = await editProduct(product);
+  if (edit.hasOwnProperty('error')) {
+    res.status(503).jsonp({ message: edit.error.message });
+    return;
+  }
+  const result = getProductCategoryById(productId);
   res.status(200).jsonp({ ...result });
 });
 
@@ -572,6 +831,7 @@ server.put('/auth/editInfo', (req, res) => {
   const message = 'Your have an invalid token';
   res.status(status).json({ status, message });
 });
+
 server.put('/auth/changePassword', (req, res) => {
   if (
     req.headers.authorization === undefined ||
@@ -726,12 +986,10 @@ server.post('/auth/checkout', (req, res) => {
         status: orderStatus.ORDER_SAVED,
       };
       //just added need check
-      payload.products.forEach((item) => {
-        productsDb.products.forEach((product) => {
-          if (item.productId === product.id) {
-            product.left -= item.quantity;
-          }
-        });
+      payload.products.forEach(async (item) => {
+        const product = getProductById(item.productId);
+        product.left -= item.quantity;
+        await editProduct(product);
       });
       //
       ordersDb.orders.push(newOrder);
@@ -742,10 +1000,6 @@ server.post('/auth/checkout', (req, res) => {
         password: user.password,
       });
       writeJsonFile('./src/orders.json', ordersDb);
-      //need check
-      writeJsonFile('./src/db.json', productsDb);
-      //
-      // writeJsonFile('./src/goods.json', goodsDb);
       res.status(200).json({ access_token });
       return;
     }

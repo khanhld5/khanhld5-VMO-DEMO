@@ -39,11 +39,11 @@ const Home = (props) => {
       },
     ];
     setBanners(bannersInit);
-    handleGetList(`${BASE_URL}/products?_page=1&_limit=4`, setListTrend);
+    handleGetList(`${BASE_URL}/products?page=1&limit=4`, setListTrend);
 
-    handleGetList(`${BASE_URL}/products?_page=2&_limit=4`, setListNewArrival);
+    handleGetList(`${BASE_URL}/products?page=1&limit=4`, setListNewArrival);
 
-    handleGetList(`${BASE_URL}/products?_page=3&_limit=4`, setListCurrent);
+    handleGetList(`${BASE_URL}/products?page=1&limit=4`, setListCurrent);
   }, []);
 
   return (

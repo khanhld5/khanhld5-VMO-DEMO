@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BASE_URL } from '../../Constant/constant';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { handleUserLogin } from '../../State/actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const user = useSelector((state) => state.user);
 
   const [username, setUsername] = useState('');
@@ -18,13 +17,7 @@ const Login = () => {
     setUsername('');
     setPassword('');
   };
-  // useEffect(() => {
-  //   if (user.hasOwnProperty('access_token')) {
-  //     setUsername('');
-  //     setPassword('');
-  //     history.push('/');
-  //   }
-  // }, [user]);
+
   return (
     <form
       className='p-5'

@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useMousePosition from '../../../../hooks/useMousePosition';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const StarRate = (props) => {
-  const { className, handleSetScore, score } = props;
+  const { className, handleSetScore } = props;
   const { x, y } = useMousePosition();
   const starCtn = useRef();
   const [commit, setCommit] = useState(false);
@@ -53,28 +53,6 @@ const StarRate = (props) => {
       right: 0,
     },
   ]);
-  useEffect(() => {
-    const starPosition = [...starPos];
-    const ctnLeft = starCtn.current.offsetLeft;
-    const child = starCtn.current.childNodes;
-    child.forEach((item, index) => {
-      let starLeft;
-      let starRight;
-      let starMid;
-      if (index === 0) {
-        starLeft = ctnLeft;
-        starRight = starLeft + item.offsetWidth;
-      } else {
-        starLeft = starPosition[index - 1].right;
-        starRight = starLeft + item.offsetWidth;
-      }
-      starMid = starLeft + (starRight - starLeft) / 2;
-      starPosition[index].left = starLeft;
-      starPosition[index].mid = starMid;
-      starPosition[index].right = starRight;
-    });
-    setStarPos(starPosition);
-  }, []);
 
   const fillValue = (arrValue, arrResult) => {
     arrValue.forEach((item, index) => {
@@ -173,6 +151,29 @@ const StarRate = (props) => {
     handleSetScore(0);
     return;
   };
+
+  useEffect(() => {
+    const starPosition = [...starPos];
+    const ctnLeft = starCtn.current.offsetLeft;
+    const child = starCtn.current.childNodes;
+    child.forEach((item, index) => {
+      let starLeft;
+      let starRight;
+      let starMid;
+      if (index === 0) {
+        starLeft = ctnLeft;
+        starRight = starLeft + item.offsetWidth;
+      } else {
+        starLeft = starPosition[index - 1].right;
+        starRight = starLeft + item.offsetWidth;
+      }
+      starMid = starLeft + (starRight - starLeft) / 2;
+      starPosition[index].left = starLeft;
+      starPosition[index].mid = starMid;
+      starPosition[index].right = starRight;
+    });
+    setStarPos(starPosition);
+  }, []);
 
   return (
     <div

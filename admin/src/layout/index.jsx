@@ -112,9 +112,9 @@ const CommonLayOut = (props) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header className='bg-gray-800 p-2 h-auto'>
+      <Header className='bg-gray-800 p-2 h-auto leading-none'>
         <nav className='flex items-center'>
-          <h1 className='text-gray-50 px-10 text-5xl font-Pattaya'>Admin</h1>
+          <h1 className='text-gray-50 px-10 text-4xl font-Pattaya'>Admin</h1>
           <ul className='flex ml-auto text-white items-center'>
             <li>
               <div className='flex p-1 px-2 bg-white hover:bg-gray-100 items-center rounded-lg'>
@@ -122,7 +122,7 @@ const CommonLayOut = (props) => {
                   {'Lekhanh'}
                 </p>
                 <ImageCtn
-                  className={'square rounded-full w-10 ml-2 self-start'}
+                  className={'square rounded-full w-7 ml-2 self-start'}
                   link={' '}
                   notLink={true}
                   src={'https://i.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg'}
@@ -133,8 +133,8 @@ const CommonLayOut = (props) => {
             <li className='mx-4'>
               <Tooltip title='Log out' placement='left'>
                 <button
-                  className='inline-block px-1.5 py-0.5 rounded-full 
-                align-middle text-2xl bg-red-500 hover:bg-red-700 
+                  className='inline-block px-1.5 rounded-full 
+                align-middle text-lg bg-red-500 hover:bg-red-700 
                 outline-none focus:outline-none'
                   onClick={handleLogOut}
                 >

@@ -101,7 +101,6 @@ const ChangePassword = (props) => {
         ...error,
         oldPassword: { visible: true, message: user.error },
       };
-      console.log(newError);
       setError(newError);
       return;
     }
@@ -110,7 +109,7 @@ const ChangePassword = (props) => {
       oldPassword: { visible: false, message: '' },
     };
     setError(newError);
-  }, [user]);
+  }, [user.error]);
 
   useEffect(() => {
     setOldPassword('');

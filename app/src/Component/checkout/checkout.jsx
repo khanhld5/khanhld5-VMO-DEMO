@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import RemoveConfirm from '../cart/removeConfirm';
-
 import ActionConfirm from '../actionComfirm/actionComfirm';
 import { handleCartCheckout } from '../../State/actions/cartAction';
 import AddNewAddress from '../userInfo/receivers/addNewAddress';
